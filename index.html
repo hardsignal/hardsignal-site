@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HardSignal Labs — Cyber-Physical Security Research</title>
+<meta name="description" content="Independent research in RF/SDR, embedded systems, hardware security and automotive. Direction finding, fault injection, side-channel and protocol work.">
+<style>
+  :root{
+    --bg:#0b1012;          /* instrument panel dark, slightly warm */
+    --panel:#111a1d;
+    --ink:#e8eef0;         /* off-white */
+    --dim:#8fa3a6;         /* muted label grey-teal */
+    --trace:#5fd3d0;       /* CH1 phosphor cyan */
+    --trace2:#e0a458;      /* CH2 amber */
+    --line:#1e2b2f;        /* hairline */
+    --focus:#5fd3d0;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+  a{color:var(--trace);text-decoration:none}
+  a:hover{text-decoration:underline}
+  :focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:2px}
+
+  /* ---- hero ---- */
+  header{padding:72px 0 40px;border-bottom:1px solid var(--line)}
+  .herotop{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+  .herotop svg.kraken{flex:0 0 auto;width:132px;height:132px}
+  .mark{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  @media(max-width:520px){
+    .herotop svg.kraken{width:96px;height:96px}
+  }
+  h1{
+    font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.05;margin:0;
+    font-weight:700;letter-spacing:-0.02em;
+  }
+  .tag{color:var(--dim);font-size:.95rem;margin-top:18px;max-width:58ch}
+  .scope{
+    margin:34px 0 0;border:1px solid var(--line);border-radius:6px;
+    background:
+      linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 25px,
+      linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/40px 100%,
+      var(--panel);
+    background-blend-mode:normal;overflow:hidden;position:relative;
+  }
+  .scope svg{display:block;width:100%;height:120px}
+  .readout{
+    display:flex;gap:22px;flex-wrap:wrap;padding:10px 14px;
+    border-top:1px solid var(--line);font-size:.8rem;color:var(--dim);
+    font-family:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  .readout b{color:var(--trace);font-weight:500}
+  .readout .ch2{color:var(--trace2)}
+
+  /* ---- sections ---- */
+  section{padding:52px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:1.35rem;margin:0 0 6px;font-weight:650;letter-spacing:-0.01em}
+  .lede{color:var(--dim);max-width:64ch;margin:0 0 28px}
+
+  /* projects keyed by discipline */
+  .disc{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:22px 0;border-top:1px solid var(--line)}
+  .disc:first-of-type{border-top:none}
+  .disc h3{margin:0;font-size:.85rem;color:var(--dim);font-weight:600;padding-top:3px}
+  .repo{margin:0 0 18px}
+  .repo:last-child{margin-bottom:0}
+  .repo a.name{
+    font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;
+    font-size:1rem;font-weight:500;
+  }
+  .repo p{margin:4px 0 0;color:var(--dim);font-size:.9rem;max-width:60ch}
+
+  /* about + contact */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .cols p{color:var(--dim);margin:0 0 14px}
+  .cols p strong{color:var(--ink);font-weight:600}
+  footer{padding:34px 0 60px;color:var(--dim);font-size:.85rem}
+  footer a{color:var(--dim);text-decoration:underline}
+
+  @media(max-width:640px){
+    .disc{grid-template-columns:1fr;gap:8px}
+    .cols{grid-template-columns:1fr;gap:26px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .trace-anim{animation:none !important}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="herotop">
+      <svg class="kraken" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" aria-label="HardSignal Labs cyber-kraken mark" role="img">
+        <defs>
+          <radialGradient id="khead" cx="50%" cy="42%" r="60%">
+            <stop offset="0%" stop-color="#7ff0ec"/>
+            <stop offset="55%" stop-color="#3fb9b6"/>
+            <stop offset="100%" stop-color="#1b6f6d"/>
+          </radialGradient>
+          <radialGradient id="kglow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#5fd3d0" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#5fd3d0" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="180" cy="150" r="140" fill="url(#kglow)"/>
+        <g stroke="#5fd3d0" fill="none" opacity="0.25">
+          <circle cx="180" cy="140" r="86" stroke-dasharray="2 8"/>
+          <circle cx="180" cy="140" r="104" stroke-dasharray="2 12" opacity="0.6"/>
+        </g>
+        <g fill="none" stroke-linecap="round">
+          <path d="M120,205 C95,250 120,270 92,300 S120,330 96,345" stroke="#e0a458" stroke-width="3" opacity="0.85"/>
+          <path d="M145,215 C132,262 150,280 138,315 S158,338 140,352" stroke="#5fd3d0" stroke-width="3.4"/>
+          <path d="M172,220 C168,270 176,300 170,330 S180,348 172,356" stroke="#5fd3d0" stroke-width="3.6"/>
+          <path d="M188,220 C192,270 184,300 190,330 S180,348 188,356" stroke="#5fd3d0" stroke-width="3.6"/>
+          <path d="M215,215 C228,262 210,280 222,315 S202,338 220,352" stroke="#5fd3d0" stroke-width="3.4"/>
+          <path d="M240,205 C265,250 240,270 268,300 S240,330 264,345" stroke="#e0a458" stroke-width="3" opacity="0.85"/>
+        </g>
+        <g fill="#0b1012" stroke="#5fd3d0" stroke-width="1.2">
+          <circle cx="171" cy="250" r="3"/><circle cx="174" cy="285" r="3"/><circle cx="171" cy="318" r="3"/>
+          <circle cx="189" cy="250" r="3"/><circle cx="186" cy="285" r="3"/><circle cx="189" cy="318" r="3"/>
+        </g>
+        <path d="M180,60 C126,60 96,102 96,148 C96,185 120,208 180,214 C240,208 264,185 264,148 C264,102 234,60 180,60 Z"
+              fill="url(#khead)" stroke="#7ff0ec" stroke-width="1.5"/>
+        <g stroke="#0b1012" stroke-width="1.4" fill="none" opacity="0.55">
+          <path d="M140,110 h22 v18 h16"/><path d="M220,108 h-20 v22"/><path d="M150,150 h30"/>
+          <circle cx="140" cy="110" r="2.2" fill="#0b1012"/><circle cx="236" cy="108" r="2.2" fill="#0b1012"/>
+        </g>
+        <g>
+          <ellipse cx="152" cy="140" rx="17" ry="19" fill="#0b1012" stroke="#5fd3d0" stroke-width="1.5"/>
+          <ellipse cx="208" cy="140" rx="17" ry="19" fill="#0b1012" stroke="#5fd3d0" stroke-width="1.5"/>
+          <circle cx="152" cy="140" r="6" fill="#e0a458"/><circle cx="208" cy="140" r="6" fill="#e0a458"/>
+          <circle cx="154" cy="137" r="2" fill="#fff2dd"/><circle cx="210" cy="137" r="2" fill="#fff2dd"/>
+        </g>
+        <line x1="180" y1="60" x2="180" y2="40" stroke="#5fd3d0" stroke-width="2"/>
+        <circle cx="180" cy="37" r="3.5" fill="#e0a458"/>
+      </svg>
+      <div class="mark">
+        <h1>HardSignal&nbsp;Labs</h1>
+      </div>
+    </div>
+    <p class="tag">Independent cyber-physical security research. Where radio,
+      firmware and silicon meet — direction finding, fault injection,
+      side-channel analysis and protocol work, on instrumented hardware.</p>
+
+    <div class="scope" aria-hidden="true">
+      <svg viewBox="0 0 960 120" preserveAspectRatio="none">
+        <path class="trace-anim" id="wave1" fill="none" stroke="#5fd3d0" stroke-width="1.6" opacity="0.95"/>
+        <path class="trace-anim" id="wave2" fill="none" stroke="#e0a458" stroke-width="1.2" opacity="0.5"/>
+      </svg>
+      <div class="readout">
+        <span><b>CH1</b> DoA&nbsp;bearing 123.2&deg;</span>
+        <span><b>CH1</b> 433.645&nbsp;MHz</span>
+        <span class="ch2">CH2 glitch&nbsp;offset&nbsp;sweep</span>
+        <span>conf&nbsp;4.55</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Work</h2>
+    <p class="lede">Public research projects, grouped by discipline. Each is a
+      real build with methodology and results — not demos.</p>
+
+    <div class="disc">
+      <h3>RF / SDR</h3>
+      <div>
+        <div class="repo">
+          <a class="name" href="https://github.com/hardsignal/hardsignal-kraken-sentinel">hardsignal-kraken-sentinel</a>
+          <p>RF sensing, direction finding, event analysis and IQ feature
+             extraction with a 5-channel KrakenSDR. Controlled RF fingerprint
+             research against known and owned sources.</p>
+        </div>
+        <div class="repo">
+          <a class="name" href="https://github.com/hardsignal/krakensdr-doa">krakensdr-doa</a>
+          <p>Coherent direction-of-arrival measurement and the build write-up
+             for the 5-channel array.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="disc">
+      <h3>Embedded</h3>
+      <div>
+        <div class="repo">
+          <a class="name" href="https://github.com/hardsignal/nfc-security-research-platform">nfc-security-research-platform</a>
+          <p>Bare-metal ISO14443A / ISO-DEP NFC platform on STM32 + ST25R3916B,
+             instrumented across SWD, SPI and IRQ with J-Link and Saleae.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="disc">
+      <h3>Hardware security</h3>
+      <div>
+        <div class="repo">
+          <a class="name" href="https://github.com/hardsignal/stm32-husky-trigger-capture">stm32-husky-trigger-capture</a>
+          <p>STM32 Nucleo-F446RE with ChipWhisperer Husky — trigger and ADC
+             capture for fault-injection and side-channel experiments on a
+             dedicated target.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="disc">
+      <h3>Instrumentation</h3>
+      <div>
+        <div class="repo">
+          <a class="name" href="https://github.com/hardsignal/lab-hardware-scripts">lab-hardware-scripts</a>
+          <p>Python control for the bench — Rigol DP832 supply, Siglent SDL1030X
+             load and SDS1104X-U scope — for repeatable, automated measurement.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h2>About</h2>
+        <p>HardSignal Labs is the independent research work of an engineer in
+           <strong>Liverpool, UK</strong>, working across the boundary between
+           radio, embedded systems and hardware.</p>
+        <p>The focus is <strong>cyber-physical security</strong>: understanding
+           how physical signals and embedded devices can be observed, measured
+           and tested — with a research discipline of working against
+           <strong>controlled, owned or authorised sources</strong>.</p>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <p>Open to conversations about RF, embedded and hardware-security work.</p>
+        <p><a href="https://github.com/hardsignal">github.com/hardsignal</a></p>
+        <p><a id="mail" href="#">contact&nbsp;— set up email routing</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    HardSignal Labs · Cyber-physical security research · Liverpool, UK
+  </div>
+</footer>
+
+<script>
+  // Draw two oscilloscope traces. CH1 = a settled RF-ish waveform,
+  // CH2 = a faint secondary. Gentle single animated phase drift on CH1.
+  const W = 960, H = 120, mid = H/2;
+  function build(points){
+    let d = "M 0 " + points[0].toFixed(1);
+    for(let i=1;i<points.length;i++){
+      const x = (i/(points.length-1))*W;
+      d += " L " + x.toFixed(1) + " " + points[i].toFixed(1);
+    }
+    return d;
+  }
+  function wave(phase, amp, freq, noise){
+    const n = 240, pts = [];
+    for(let i=0;i<n;i++){
+      const t = i/n;
+      let y = Math.sin(t*Math.PI*2*freq + phase)*amp;
+      y += Math.sin(t*Math.PI*2*freq*2.3 + phase*1.7)*amp*0.25; // harmonic
+      if(noise) y += (Math.random()-0.5)*noise;
+      pts.push(mid - y);
+    }
+    return pts;
+  }
+  const p1 = document.getElementById('wave1');
+  const p2 = document.getElementById('wave2');
+  p2.setAttribute('d', build(wave(2.1, 26, 5, 3)));
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){
+    p1.setAttribute('d', build(wave(0, 34, 3, 2)));
+  } else {
+    let phase = 0;
+    function tick(){
+      phase += 0.012;
+      p1.setAttribute('d', build(wave(phase, 34, 3, 2)));
+      requestAnimationFrame(tick);
+    }
+    tick();
+  }
+</script>
+</body>
+</html>

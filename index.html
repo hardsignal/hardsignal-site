@@ -31,10 +31,10 @@
   /* ---- hero ---- */
   header{padding:72px 0 40px;border-bottom:1px solid var(--line)}
   .herotop{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
-  .herotop svg.kraken{flex:0 0 auto;width:132px;height:132px}
+  .herotop img.kraken{display:block;width:min(620px,100%);height:auto}
   .mark{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
   @media(max-width:520px){
-    .herotop svg.kraken{width:96px;height:96px}
+    .herotop img.kraken{width:min(420px,100%);height:auto}
   }
   h1{
     font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.05;margin:0;
@@ -96,53 +96,9 @@
 <header>
   <div class="wrap">
     <div class="herotop">
-      <svg class="kraken" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" aria-label="HardSignal Labs cyber-kraken mark" role="img">
-        <defs>
-          <radialGradient id="khead" cx="50%" cy="42%" r="60%">
-            <stop offset="0%" stop-color="#7ff0ec"/>
-            <stop offset="55%" stop-color="#3fb9b6"/>
-            <stop offset="100%" stop-color="#1b6f6d"/>
-          </radialGradient>
-          <radialGradient id="kglow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#5fd3d0" stop-opacity="0.35"/>
-            <stop offset="100%" stop-color="#5fd3d0" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <circle cx="180" cy="150" r="140" fill="url(#kglow)"/>
-        <g stroke="#5fd3d0" fill="none" opacity="0.25">
-          <circle cx="180" cy="140" r="86" stroke-dasharray="2 8"/>
-          <circle cx="180" cy="140" r="104" stroke-dasharray="2 12" opacity="0.6"/>
-        </g>
-        <g fill="none" stroke-linecap="round">
-          <path d="M120,205 C95,250 120,270 92,300 S120,330 96,345" stroke="#e0a458" stroke-width="3" opacity="0.85"/>
-          <path d="M145,215 C132,262 150,280 138,315 S158,338 140,352" stroke="#5fd3d0" stroke-width="3.4"/>
-          <path d="M172,220 C168,270 176,300 170,330 S180,348 172,356" stroke="#5fd3d0" stroke-width="3.6"/>
-          <path d="M188,220 C192,270 184,300 190,330 S180,348 188,356" stroke="#5fd3d0" stroke-width="3.6"/>
-          <path d="M215,215 C228,262 210,280 222,315 S202,338 220,352" stroke="#5fd3d0" stroke-width="3.4"/>
-          <path d="M240,205 C265,250 240,270 268,300 S240,330 264,345" stroke="#e0a458" stroke-width="3" opacity="0.85"/>
-        </g>
-        <g fill="#0b1012" stroke="#5fd3d0" stroke-width="1.2">
-          <circle cx="171" cy="250" r="3"/><circle cx="174" cy="285" r="3"/><circle cx="171" cy="318" r="3"/>
-          <circle cx="189" cy="250" r="3"/><circle cx="186" cy="285" r="3"/><circle cx="189" cy="318" r="3"/>
-        </g>
-        <path d="M180,60 C126,60 96,102 96,148 C96,185 120,208 180,214 C240,208 264,185 264,148 C264,102 234,60 180,60 Z"
-              fill="url(#khead)" stroke="#7ff0ec" stroke-width="1.5"/>
-        <g stroke="#0b1012" stroke-width="1.4" fill="none" opacity="0.55">
-          <path d="M140,110 h22 v18 h16"/><path d="M220,108 h-20 v22"/><path d="M150,150 h30"/>
-          <circle cx="140" cy="110" r="2.2" fill="#0b1012"/><circle cx="236" cy="108" r="2.2" fill="#0b1012"/>
-        </g>
-        <g>
-          <ellipse cx="152" cy="140" rx="17" ry="19" fill="#0b1012" stroke="#5fd3d0" stroke-width="1.5"/>
-          <ellipse cx="208" cy="140" rx="17" ry="19" fill="#0b1012" stroke="#5fd3d0" stroke-width="1.5"/>
-          <circle cx="152" cy="140" r="6" fill="#e0a458"/><circle cx="208" cy="140" r="6" fill="#e0a458"/>
-          <circle cx="154" cy="137" r="2" fill="#fff2dd"/><circle cx="210" cy="137" r="2" fill="#fff2dd"/>
-        </g>
-        <line x1="180" y1="60" x2="180" y2="40" stroke="#5fd3d0" stroke-width="2"/>
-        <circle cx="180" cy="37" r="3.5" fill="#e0a458"/>
-      </svg>
-      <div class="mark">
-        <h1>HardSignal&nbsp;Labs</h1>
-      </div>
+      <img class="kraken"
+           src="hardsignal-logo-horizontal.png"
+           alt="Hardsignal Labs">
     </div>
     <p class="tag">Independent cyber-physical security research. Where radio,
       firmware and silicon meet — direction finding, fault injection,
